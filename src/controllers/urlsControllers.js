@@ -24,7 +24,7 @@ export async function postShortenUrl(req, res) {
         
     } catch (error) {
         console.error(error);
-        res.sendStatus(500);
+        res.status(500).send(error);
     }
 }
 
@@ -44,7 +44,7 @@ export async function getShortenUrlById(req, res) {
         return res.status(200).send(validUrl[0]);
     } catch (error) {
         console.error(error);
-        res.sendStatus(500);
+        res.status(500).send(error);
     }
 }
 
@@ -71,7 +71,7 @@ export async function getOpenShortenUrl(req, res) {
 
     } catch (error) {
         console.error(error);
-        res.sendStatus(500);
+        res.status(500).send(error);
     }
 }
 
@@ -101,6 +101,6 @@ export async function deleteShortenUrl(req, res) {
 
     } catch (error) {
         console.error(error);
-        res.sendStatus(500);
+        res.status(500).send(error);
     }
 }

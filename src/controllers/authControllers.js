@@ -8,8 +8,10 @@ export async function signUp(req, res) {
 
     try {
         const { rows: validUser } = await connection.query(`
-        SELECT * FROM users WHERE email = '${email.trim()}'
-        `,)
+        SELECT * FROM users 
+        WHERE email = $1
+        `,[email.trim()]);
+
         if(validUser.length > 0) {
             return res.status(400).send('User already exists');
         }
@@ -18,10 +20,12 @@ export async function signUp(req, res) {
         INSERT INTO users (name, email, password) 
         VALUES ($1, $2, $3)
         `, [name, email, encryptKey]);
+
         return res.status(200).send('User created successfully');
         
     } catch (error) {
-        res.sendStatus(500);
+        console.error(error);
+        res.status(500).send(error);
     }
 }
 
@@ -46,8 +50,8 @@ export async function signIn(req, res) {
 
         res.status(200).json({auth: true, token: token});  // send the jwt token to the client 
 
-    } catch (err) {
-        console.error(err);
-        res.sendStatus(500);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
     }
 }
