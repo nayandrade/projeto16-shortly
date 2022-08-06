@@ -3,7 +3,8 @@ import connection from '../database/database.js';
 async function getUserByEmail(email) {
     return await connection.query(`
     SELECT * FROM users 
-    WHERE email = $1`, [email]);
+    WHERE email = $1
+    `, [email]);
 }
 
 async function insertUser(name, email, encryptKey) {
