@@ -1,0 +1,206 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.11 (Ubuntu 12.11-0ubuntu0.20.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: links; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.links (
+    id integer NOT NULL,
+    url text NOT NULL,
+    "shortUrl" character varying(10) NOT NULL,
+    "userId" integer NOT NULL,
+    "createdAt" timestamp with time zone DEFAULT '2022-08-06 20:01:33.973418-03'::timestamp with time zone NOT NULL,
+    clicks bigint DEFAULT '0'::bigint NOT NULL
+);
+
+
+ALTER TABLE public.links OWNER TO postgres;
+
+--
+-- Name: links_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.links_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.links_id_seq OWNER TO postgres;
+
+--
+-- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.links_id_seq OWNED BY public.links.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL,
+    email character varying(100) NOT NULL,
+    password text NOT NULL,
+    "createdAt" timestamp with time zone DEFAULT '2022-08-06 20:01:33.973418-03'::timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: links id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links ALTER COLUMN id SET DEFAULT nextval('public.links_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: links; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.links (id, url, "shortUrl", "userId", "createdAt", clicks) FROM stdin;
+1	https://http.cat/	myWvUKqWK_	6	2022-08-06 20:01:33.973418-03	0
+2	https://www.driven.com.br/	HJRQGMQiip	6	2022-08-06 20:01:33.973418-03	0
+3	https://www.linkedin.com/in/frankrochadev/	Gwoxv_1uQE	6	2022-08-06 20:01:33.973418-03	0
+6	https://www.instagram.com/nrdeandrade/	MpMIUo7Blt	4	2022-08-06 20:01:33.973418-03	0
+7	https://www.facebook.com/nrdeandrade	8T-ptopjPw	4	2022-08-06 20:01:33.973418-03	0
+5	https://github.com/nayandrade	ngy3FNnZZM	4	2022-08-06 20:01:33.973418-03	3
+4	https://www.linkedin.com/in/nayandrade/	YlfWOquXKt	4	2022-08-06 20:01:33.973418-03	1
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, name, email, password, "createdAt") FROM stdin;
+1	narutin	narutin@gmail.com	$2b$10$zZTgZQpgtnDj.uud9Yk1jex3xVs5txi3A0B1SNf9s0PB3csWBVTBq	2022-08-06 20:01:33.973418-03
+2	joao	joao@gmail.com	$2b$10$gysYdH4uSWQSYz0YAGQ04O54xoY9Vd6IB8VZ//OAf9uxzPDCRa1u2	2022-08-06 20:01:33.973418-03
+3	vovo juju	juju@gmail.com	$2b$10$ajYWpIA7xNKVtQtZsN8Tf.HSnT/3TdlU3axp4BEmnpavbEHxN1AnG	2022-08-06 20:01:33.973418-03
+4	Nayara	nayara@gmail.com	$2b$10$/vPdxNq6jI9rNQFRJ3ZRN.xignUCLByMuDis8KS3sGoKpJE9kE6Ve	2022-08-06 20:01:33.973418-03
+5	Xablau	xablau@gmail.com	$2b$10$EGAbrgkW1wWM9HuIGmkdF.GgNjrjj6iRMXZ0kEIodP7zbu2DL6kAK	2022-08-06 20:01:33.973418-03
+6	Frank Rocha	frank@driven.com	$2b$10$iVjjZMzuu8.bu2WttmLrSOlrGeAfHmSfuVywn/WPQcCrHZwFkJjf6	2022-08-06 20:01:33.973418-03
+\.
+
+
+--
+-- Name: links_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.links_id_seq', 7, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 6, true);
+
+
+--
+-- Name: links links_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_pk PRIMARY KEY (id);
+
+
+--
+-- Name: links links_shortUrl_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT "links_shortUrl_key" UNIQUE ("shortUrl");
+
+
+--
+-- Name: links links_url_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_url_key UNIQUE (url);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pk PRIMARY KEY (id);
+
+
+--
+-- Name: links links_fk0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.links
+    ADD CONSTRAINT links_fk0 FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
