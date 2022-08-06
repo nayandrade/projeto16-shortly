@@ -1,24 +1,21 @@
 import connection from '../database/database.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 
-async function getUserByEmail(email) {
+export async function getUserByEmail(email) {
     return await connection.query(`
     SELECT * FROM users 
-    WHERE email = $1`, [email.trim()]);
+    WHERE email = $1`, [email]);
 }
 
-// async function getUserById(id) {
-//     const { rows: validUser } = await connection.query(`
-//     SELECT * FROM users 
-//     WHERE id = $1`, [id]);
-
-//     return validUser[0];
-// }
-
+export async function insertUser(name, email, encryptKey) {
+    return await connection.query(`
+    INSERT INTO users (name, email, password) 
+    VALUES ($1, $2, $3)
+    `, [name, email, encryptKey]);
+}
 
 const userRepository = {
-    getUserByEmail
+    getUserByEmail,
+    insertUser
 }
 
 export default userRepository;
