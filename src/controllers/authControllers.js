@@ -41,7 +41,7 @@ export async function signIn(req, res) {
             expiresIn: 900 // expires in 15 minutes
         });
 
-        res.status(200).json({auth: true, token: token});  // send the jwt token to the client 
+        res.status(200).json({auth: true, token: token});
 
     } catch (error) {
         console.error(error);
