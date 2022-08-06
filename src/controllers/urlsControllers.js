@@ -3,7 +3,7 @@ import linksRepository from '../repositories/linksRepository.js';
 
 export async function postShortenUrl(req, res) {
     const { url } = req.body;
-    const nanoUrl = nanoid();
+    const nanoUrl = nanoid(10);
     const userId = req.user.id;
 
     try {
