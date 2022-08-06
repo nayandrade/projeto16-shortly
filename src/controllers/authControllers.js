@@ -45,7 +45,7 @@ export async function signIn(req, res) {
         }
 
         const token = jwt.sign(validUser[0], SECRET_KEY, {
-            expiresIn: 300 // expires in 5min
+            expiresIn: 900 // expires in 15 minutes
         });
 
         res.status(200).json({auth: true, token: token});  // send the jwt token to the client 
