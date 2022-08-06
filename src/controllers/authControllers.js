@@ -9,14 +9,13 @@ export async function signUp(req, res) {
 
     try {
         const { rows: validUser } = await userRepository.getUserByEmail(email.trim());
-
         if(validUser.length > 0) {
-            return res.status(400).send('User already exists');
+            return res.status(409).send('User already exists');
         }
 
         await userRepository.insertUser(name, email, encryptKey);
 
-        return res.status(200).send('User created successfully');
+        return res.status(201).send('User created successfully');
         
     } catch (error) {
         console.error(error);
@@ -30,10 +29,11 @@ export async function signIn(req, res) {
     
     try {
         const { rows: validUser } = await userRepository.getUserByEmail(email.trim());
-
-        const isValidPssword = bcrypt.compareSync(password, validUser[0].password);
-        
-        if(validUser.length < 1 || !isValidPssword) {
+        if(validUser.length === 0) {
+            return res.status(401).send('Invalid email or password.') 
+        }
+        const isValidPssword = bcrypt.compareSync(password, validUser[0].password);     
+        if(!isValidPssword) {
             return res.status(401).send('Invalid email or password.') 
         }
 
