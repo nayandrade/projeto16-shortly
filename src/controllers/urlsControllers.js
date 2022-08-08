@@ -53,7 +53,7 @@ export async function getOpenShortenUrl(req, res) {
 
         await linksRepository.updateLinkCount(shortUrl.trim());
 
-        return res.redirect(200, validUrl[0].url);
+        return res.status(200).redirect(validUrl[0].url);
 
     } catch (error) {
         console.error(error);
