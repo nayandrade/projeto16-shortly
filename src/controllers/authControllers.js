@@ -37,7 +37,7 @@ export async function signIn(req, res) {
             return res.status(401).send('Invalid email or password.') 
         }
 
-        const token = jwt.sign(validUser[0], SECRET_KEY, {
+        const token = await jwt.sign(validUser[0], SECRET_KEY, {
             expiresIn: 900 // expires in 15 minutes
         });
 
